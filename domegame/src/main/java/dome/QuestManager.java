@@ -1,5 +1,6 @@
 package main.java.dome;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,24 +18,42 @@ public class QuestManager {
     public void talkWithNPC(Player player, Scanner scanner) {
         System.out.println("Вы подошли к " + npc.getName() + ".");
         System.out.println(npc.getName() + ": Привет, " + player.getName() + "! У меня есть для тебя задание.");
+        Quest currentQuest = npc.getCurrentQuest();
+        System.out.println("Задание: " + currentQuest.getDescription());
 
-        List<Quest> availableQuests = npc.getAvailableQuests();
-
-        for (int i = 0; i < availableQuests.size(); i++) {
-            System.out.println((i + 1) + ". " + availableQuests.get(i).getDescription());
-        }
-
-        System.out.print("Выберите номер задания (или 0, чтобы отказаться): ");
+        System.out.print("Принять задание? (1 - Да, 2 - Нет): ");
         int choice = scanner.nextInt();
 
-        if (choice >= 1 && choice <= availableQuests.size()) {
-            Quest selectedQuest = availableQuests.get(choice -1);
-            player.acceptQuest(selectedQuest);
-            npc.setCurrentQuest(selectedQuest);
+        if (choice == 1) {
+            player.acceptQuest(currentQuest);
             System.out.println("Вы приняли задание. Удачи в выполнении!");
         } else {
-            System.out.println("Вы отказались от задания. Возвращайтесь когда будете готовы.");
+            System.out.println("Вы отказались от задания. Возвращайтесь, когда будете готовы.");
         }
+//        List<Quest> availableQuests = npc.getAvailableQuests();
+
+//        for (int i = 0; i < availableQuests.size(); i++) {
+//            System.out.println((i + 1) + ". " + availableQuests.get(i).getDescription());
+//        }
+//
+//        System.out.print("Выберите номер задания (или 0, чтобы отказаться): ");
+//        int choice = scanner.nextInt();
+//
+//        if (choice >= 1 && choice <= availableQuests.size()) {
+//            Quest selectedQuest = availableQuests.get(choice -1);
+//            player.acceptQuest(selectedQuest);
+//            npc.setCurrentQuest(selectedQuest);
+//            System.out.println("Вы приняли задание. Удачи в выполнении!");
+//        } else {
+//            System.out.println("Вы отказались от задания. Возвращайтесь когда будете готовы.");
+//        }
+
+        // Метод который возвращает список доступных квестов.
+        // метод getAvailableQuests, который возвращает список доступных квестов.
+        // Этот список передается менеджеру квестов (QuestManager),
+        // который используется для предложения квестов игроку
+        // во время разговора с NPC.
+
 
 //        Quest currentQuest = npc.getCurrentQuest();
 //        System.out.println("Задание: " + currentQuest.getDescription());
@@ -60,4 +79,5 @@ public class QuestManager {
 //            System.out.println("Ну как хочешь. Если передумаешь, приходи.");
 //        }
     }
+
 }

@@ -13,7 +13,7 @@ public class NPC {
     public NPC(String name) {
         this.name = name;
         this.availableQuests = new ArrayList<>();
-        this.currentQuest = null;
+        this.currentQuest = generateRandomQuest();          // Генерируем случайный квест при создании NPC
     }
 
     public String getName() {
@@ -25,14 +25,6 @@ public class NPC {
         availableQuests.add(quest);
     }
 
-    // Метод который возвращает список доступных квестов.
-    // метод getAvailableQuests, который возвращает список доступных квестов.
-    // Этот список передается менеджеру квестов (QuestManager),
-    // который используется для предложения квестов игроку
-    // во время разговора с NPC.
-    public List<Quest> getAvailableQuests() {
-        return availableQuests;
-    }
 
     public Quest getCurrentQuest() {
         return currentQuest;
@@ -42,15 +34,22 @@ public class NPC {
         this.currentQuest = currentQuest;
     }
 
-    private void generateRandomQuest() {
-        String[] possibleQuests = {
+    public List<Quest> getAvailableQuests() {
+//        List<Quest> availableQuests = new ArrayList<>();
+//        availableQuests.add(npc.getCurrentQuest());
+        return availableQuests;
+    }
+
+    // Генерация случайного квеста для NPC
+    private Quest generateRandomQuest() {
+        String[] questDescriptions = {
                 "Собрать запчасти для ремонта генератора",
                 "Найти утерянные артифакты в Радиозоне",
                 "Помочь местным жителям с поиском пропавших товаров"
         };
         Random random = new Random();
-        int index = random.nextInt(possibleQuests.length);
-        this.currentQuest = new Quest(possibleQuests[index]);
+        int randomIndex = random.nextInt(questDescriptions.length);
+        return new Quest(questDescriptions[randomIndex]);
     }
 
     // Другие методы NPC
