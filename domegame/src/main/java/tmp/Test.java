@@ -1,4 +1,4 @@
-package main.java.dome;
+package main.java.tmp;
 
 public class Test {
     public static void main(String[] args) {
